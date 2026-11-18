@@ -37,4 +37,37 @@ class ParserService {
         }
         return texto.findAll(PADRAO_QUATRO_PALAVRAS).collect { it.trim() }
     }
+
+    private static final Pattern PADRAO_TRITONGO = Pattern.compile(
+            /(?iU)\b\p{L}*(?:[qg]u(?:[aáâ]i|[aáâ]u|[oóô]u|[oóô]i|iu|ão|õe|am\b)|(?:enxagu|averigu|apazigu|desagu|obliqu|adequ)(?:ei|em))\p{L}*\b/
+    )
+
+    static List<String> getTritongos(String texto) {
+        if (!texto) {
+            return []
+        }
+        return texto.findAll(PADRAO_TRITONGO)
+    }
+
+    private static final Pattern PADRAO_HIATO = Pattern.compile(
+            /(?iU)\b(?!aos?\b)(?:\p{L}*(?:([aáâeéêiíoóôuú])\1|(?:[aáâeéêiíoóô]|(?<![qg])u)[íú]|(?:[aeo]|(?<![qg])u)[iu](?=[rlz]|nh|[mn](?![aeiouáéíóúâêôãõ]))|[aáâeéêoóô][aáâeéêoóô])\p{L}*|[\p{L}&&[^áéíóúâêô]]*(?<![qgaeiouáéíóúâêôãõ])[iu][aeo]s?)\b/
+    )
+
+    static List<String> getHiatos(String texto) {
+        if (!texto) {
+            return []
+        }
+        return texto.findAll(PADRAO_HIATO)
+    }
+
+    private static final Pattern PADRAO_DITONGO = Pattern.compile(
+            /(?iU)\b(?:\p{L}*(?:(?<![qg]u)(?:[aáâoóô][iu](?![rlz]|nh|[mn](?![aeiouáéíóúâêôãõ]))|ãe|ão|õe)|[eéê][iu](?![rlz]|nh|[mn](?![aeiouáéíóúâêôãõ]))|(?<![qg])(?:iu|ui)(?![rlz]|nh|[mn](?![aeiouáéíóúâêôãõ]))|[qg]u[ao](?![iu]))\p{L}*|\p{L}*[áéíóúâêô]\p{L}*[iu][aeo]s?|aos?)\b/
+    )
+
+    static List<String> getDitongos(String texto) {
+        if (!texto) {
+            return []
+        }
+        return texto.findAll(PADRAO_DITONGO)
+    }
 }

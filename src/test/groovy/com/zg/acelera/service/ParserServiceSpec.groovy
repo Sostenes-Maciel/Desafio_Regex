@@ -65,4 +65,37 @@ class ParserServiceSpec extends Specification {
                 "Coração bate forte, sempre!"
         ]
     }
+
+    def "deve identificar palavras que contem tritongos"() {
+        given: "um texto com tritongos orais, nasais e digrafos como armadilha"
+        String texto = "No Paraguai, os saguões são iguais; ele averiguou e enxaguei o queijo na fogueira."
+
+        when: "extraimos as palavras com tritongos"
+        List<String> resultado = parserService.getTritongos(texto)
+
+        then: "apenas as palavras com tritongo real sao retornadas"
+        resultado == ["Paraguai", "saguões", "iguais", "averiguou", "enxaguei"]
+    }
+
+    def "deve identificar palavras que contem hiatos"() {
+        given: "um texto misturando diferentes tipos de hiatos e ditongos"
+        String texto = "No dia da saída, o poeta foi ao teatro sob a chuva na rua e viu o voo com saúde e raiz."
+
+        when: "extraimos as palavras com hiatos"
+        List<String> resultado = parserService.getHiatos(texto)
+
+        then: "apenas as palavras com hiato sao retornadas"
+        resultado == ["dia", "saída", "poeta", "teatro", "rua", "voo", "saúde", "raiz"]
+    }
+
+    def "deve identificar palavras que contem ditongos"() {
+        given: "um texto com ditongos orais, nasais, crescentes, hiatos e tritongo"
+        String texto = "A construção do coração deixou o céu azul; a mãe levou pão, queijo, água e história, mas o poeta viu a saída na rua do Paraguai."
+
+        when: "extraimos as palavras com ditongos"
+        List<String> resultado = parserService.getDitongos(texto)
+
+        then: "apenas as palavras com ditongo sao retornadas"
+        resultado == ["construção", "coração", "deixou", "céu", "mãe", "levou", "pão", "queijo", "água", "história", "viu"]
+    }
 }
