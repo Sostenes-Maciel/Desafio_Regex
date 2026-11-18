@@ -96,4 +96,11 @@ class ParserService {
                 .replaceAll(/[ \t]+([.,!?;:])/, '$1')
                 .replaceAll(/(?m)^[ \t]+|[ \t]+$/, "")
     }
+
+    static List<String> getPluraisRemovidos(String texto) {
+        if (!texto) {
+            return []
+        }
+        return texto.findAll(PADRAO_PLURAL_S_ES)
+    }
 }

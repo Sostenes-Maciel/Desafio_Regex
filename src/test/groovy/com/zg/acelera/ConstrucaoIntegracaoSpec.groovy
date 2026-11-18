@@ -1,5 +1,7 @@
-package com.zg.acelera.service
+package com.zg.acelera
 
+import com.zg.acelera.service.LetraService
+import com.zg.acelera.service.ParserService
 import spock.lang.Specification
 
 class ConstrucaoIntegracaoSpec extends Specification {

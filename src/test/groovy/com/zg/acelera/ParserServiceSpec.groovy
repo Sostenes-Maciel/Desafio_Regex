@@ -1,6 +1,7 @@
 // Suite de testes unitarios para as extracoes com Regex do ParserService
-package com.zg.acelera.service
+package com.zg.acelera
 
+import com.zg.acelera.service.ParserService
 import spock.lang.Specification
 
 class ParserServiceSpec extends Specification {
@@ -119,5 +120,16 @@ class ParserServiceSpec extends Specification {
 
         then: "os plurais sao removidos e a pontuacao e quebras de linha permanecem limpas"
         resultado == "viram, mas o país não tem ônibus.\ncaíram depois."
+    }
+
+    def "deve listar as palavras no plural que seriam removidas do texto"() {
+        given: "um texto com plurais em s e es, alem de palavras no singular terminadas em s"
+        String texto = "Os olhos tristes viram flores, mas o país não tem ônibus.\nAs paredes caíram depois."
+
+        when: "listamos os plurais encontrados"
+        List<String> resultado = parserService.getPluraisRemovidos(texto)
+
+        then: "apenas os plurais terminados em s ou es sao retornados"
+        resultado == ["Os", "olhos", "tristes", "flores", "As", "paredes"]
     }
 }
