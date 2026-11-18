@@ -80,7 +80,7 @@ class ParserServiceSpec extends Specification {
 
     def "deve identificar palavras que contem hiatos"() {
         given: "um texto misturando diferentes tipos de hiatos e ditongos"
-        String texto = "No dia da saída, o poeta foi ao teatro sob a chuva na rua e viu o voo com saúde e raiz."
+        String texto = "No dia da saída, o poeta foi ao teatro sob a chuva na rua e viu o voo com saúde, raiz e derradeira."
 
         when: "extraimos as palavras com hiatos"
         List<String> resultado = parserService.getHiatos(texto)
@@ -91,13 +91,13 @@ class ParserServiceSpec extends Specification {
 
     def "deve identificar palavras que contem ditongos"() {
         given: "um texto com ditongos orais, nasais, crescentes, hiatos e tritongo"
-        String texto = "A construção do coração deixou o céu azul; a mãe levou pão, queijo, água e história, mas o poeta viu a saída na rua do Paraguai."
+        String texto = "A construção do coração deixou o céu azul; a mãe levou pão, queijo, água e história, mas o poeta viu a saída na rua do Paraguai derradeira."
 
         when: "extraimos as palavras com ditongos"
         List<String> resultado = parserService.getDitongos(texto)
 
         then: "apenas as palavras com ditongo sao retornadas"
-        resultado == ["construção", "coração", "deixou", "céu", "mãe", "levou", "pão", "queijo", "água", "história", "viu"]
+        resultado == ["construção", "coração", "deixou", "céu", "mãe", "levou", "pão", "queijo", "água", "história", "viu", "derradeira"]
     }
 
     def "deve extrair palavras proparoxitonas sem confundir com paroxitonas"() {

@@ -50,7 +50,7 @@ class ParserService {
     }
 
     private static final Pattern PADRAO_HIATO = Pattern.compile(
-            /(?iU)\b(?!aos?\b)(?:\p{L}*(?:([aáâeéêiíoóôuú])\1|(?:[aáâeéêiíoóô]|(?<![qg])u)[íú]|(?:[aeo]|(?<![qg])u)[iu](?=[rlz]|nh|[mn](?![aeiouáéíóúâêôãõ]))|[aáâeéêoóô][aáâeéêoóô])\p{L}*|[\p{L}&&[^áéíóúâêô]]*(?<![qgaeiouáéíóúâêôãõ])[iu][aeo]s?)\b/
+            /(?iU)\b(?!aos?\b)(?:\p{L}*(?:([aáâeéêiíoóôuú])\1|(?:[aáâeéêiíoóô]|(?<![qg])u)[íú]|(?:[aeo]|(?<![qg])u)[iu](?=[rlzmn](?![aeiouáéíóúâêôãõ])|nh)|[aáâeéêoóô][aáâeéêoóô])\p{L}*|[\p{L}&&[^áéíóúâêô]]*(?<![qgaeiouáéíóúâêôãõ])[iu][aeo]s?)\b/
     )
 
     static List<String> getHiatos(String texto) {
@@ -61,7 +61,7 @@ class ParserService {
     }
 
     private static final Pattern PADRAO_DITONGO = Pattern.compile(
-            /(?iU)\b(?:\p{L}*(?:(?<![qg]u)(?:[aáâoóô][iu](?![rlz]|nh|[mn](?![aeiouáéíóúâêôãõ]))|ãe|ão|õe)|[eéê][iu](?![rlz]|nh|[mn](?![aeiouáéíóúâêôãõ]))|(?<![qg])(?:iu|ui)(?![rlz]|nh|[mn](?![aeiouáéíóúâêôãõ]))|[qg]u[ao](?![iu]))\p{L}*|\p{L}*[áéíóúâêô]\p{L}*[iu][aeo]s?|aos?)\b/
+            /(?iU)\b(?:\p{L}*(?:(?<![qg]u)(?:[aáâoóô][iu](?![rlzmn](?![aeiouáéíóúâêôãõ])|nh)|ãe|ão|õe)|[eéê][iu](?![rlzmn](?![aeiouáéíóúâêôãõ])|nh)|(?<![qg])(?:iu|ui)(?![rlzmn](?![aeiouáéíóúâêôãõ])|nh)|[qg]u[ao](?![iu]))\p{L}*|\p{L}*[áéíóúâêô]\p{L}*[iu][aeo]s?|aos?)\b/
     )
 
     static List<String> getDitongos(String texto) {
