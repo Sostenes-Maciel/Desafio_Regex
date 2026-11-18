@@ -98,4 +98,26 @@ class ParserServiceSpec extends Specification {
         then: "apenas as palavras com ditongo sao retornadas"
         resultado == ["construção", "coração", "deixou", "céu", "mãe", "levou", "pão", "queijo", "água", "história", "viu"]
     }
+
+    def "deve extrair palavras proparoxitonas sem confundir com paroxitonas"() {
+        given: "um texto com proparoxitonas variadas e paroxitonas ou oxitonas como armadilha"
+        String texto = "Na última manhã, a máquina do náufrago derramou lágrimas no período público, mas a história da água e do café fácil não teve saída."
+
+        when: "extraimos as palavras proparoxitonas"
+        List<String> resultado = parserService.getProparoxitonas(texto)
+
+        then: "apenas as proparoxitonas reais sao retornadas"
+        resultado == ["última", "máquina", "náufrago", "lágrimas", "período", "público"]
+    }
+
+    def "deve limpar o texto removendo palavras no plural terminadas em s ou es"() {
+        given: "um texto com plurais em s e es, alem de palavras no singular terminadas em s"
+        String texto = "Os olhos tristes viram flores, mas o país não tem ônibus.\nAs paredes caíram depois."
+
+        when: "limpamos o texto removendo os plurais"
+        String resultado = parserService.removerPlurais(texto)
+
+        then: "os plurais sao removidos e a pontuacao e quebras de linha permanecem limpas"
+        resultado == "viram, mas o país não tem ônibus.\ncaíram depois."
+    }
 }

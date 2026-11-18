@@ -70,4 +70,30 @@ class ParserService {
         }
         return texto.findAll(PADRAO_DITONGO)
     }
+
+    private static final Pattern PADRAO_PROPAROXITONA = Pattern.compile(
+            /(?iU)\b\p{L}*[áéíóúâêô](?:[iu](?=[bcdfghjklmnpqrstvwxyzç]))?(?:[bcdfghjklmnpqrstvwxyzç]+(?:(?<=[qg])u[aeiou]|[aeiou])|(?<=[íú])[aeo])[bcdfghjklmnpqrstvwxyzç]+[aeiouãõ]+[bcdfghjklmnpqrstvwxyzç]*\b/
+    )
+
+    static List<String> getProparoxitonas(String texto) {
+        if (!texto) {
+            return []
+        }
+        return texto.findAll(PADRAO_PROPAROXITONA)
+    }
+
+    private static final Pattern PADRAO_PLURAL_S_ES = Pattern.compile(
+            /(?iU)\b(?!(?:mas|mais|menos|depois|antes|atrás|através|após|país|mês|gás|caos|cais|lápis|ônibus|tênis|vírus|pires|simples|deus|trás|aliás|jamais|talvez)\b)\p{L}+(?:es|s)\b/
+    )
+
+    static String removerPlurais(String texto) {
+        if (!texto) {
+            return ""
+        }
+        return texto
+                .replaceAll(PADRAO_PLURAL_S_ES, "")
+                .replaceAll(/[ \t]{2,}/, " ")
+                .replaceAll(/[ \t]+([.,!?;:])/, '$1')
+                .replaceAll(/(?m)^[ \t]+|[ \t]+$/, "")
+    }
 }
